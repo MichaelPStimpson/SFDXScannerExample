@@ -21,4 +21,4 @@ jobs:
           sfdx plugins --core
       - name: Run SFDX Scanner
         run: |
-          sfdx scanner:run --target "force-app/main/default/classes/" --format csv
+          sfdx scanner:run --target "force-app/main/default/classes/" --format csv --violations-cause-error
