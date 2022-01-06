@@ -1,0 +1,24 @@
+on:
+  workflow_dispatch:
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    env:
+      SANDBOX_NAME: ci-${{github.run_id}}-${{github.run_number}}
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SFDX Client
+        run: |
+          sudo npm -g install sfdx-cli@latest
+          sfdx --version
+          sfdx plugins --core
+      - name: Install SFDX Scanner
+        run: |
+          sudo sfdx plugins:install @salesforce/sfdx-scanner
+          sfdx --version
+          sfdx plugins --core
+      - name: Run SFDX Scanner
+        run: |
+          sfdx scanner:run --target "force-app/main/default/classes/" --format csv
