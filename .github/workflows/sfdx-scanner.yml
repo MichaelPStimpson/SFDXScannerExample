@@ -13,7 +13,7 @@ jobs:
       - name: Install SFDX Scanner
         run: |
           sudo yarn add @salesforce/sfdx-scanner
-          cd node_modules
+          cd node_modules/@salesforce
           ls -a
           sudo sfdx plugins:link .
           sfdx plugins
