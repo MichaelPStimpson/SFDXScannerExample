@@ -14,6 +14,7 @@ jobs:
         run: |
           sudo yarn add @salesforce/sfdx-scanner
           sudo sfdx plugins:link node_modules/@salesforce/sfdx-scanner
+          run: echo "y" | sfdx plugins:install @dx-cli-toolbox/sfdx-toolbox-package-utils
           sfdx plugins
       - name: Run SFDX Scanner
         run: |
