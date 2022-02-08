@@ -13,6 +13,7 @@ jobs:
       - name: Install SFDX Scanner
         run: |
           sudo sfdx plugins:install @salesforce/sfdx-scanner
+          sfdx plugins:link .
           sfdx plugins
       - name: Run SFDX Scanner
         run: |
