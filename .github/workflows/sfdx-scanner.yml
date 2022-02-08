@@ -12,9 +12,7 @@ jobs:
           sfdx plugins --core
       - name: Install SFDX Scanner
         run: |
-          sudo yarn add @salesforce/sfdx-scanner
-          sudo sfdx plugins:link node_modules/@salesforce/sfdx-scanner
-          echo "y" | sfdx plugins:install @dx-cli-toolbox/sfdx-toolbox-package-utils
+          echo "y" | sfdx plugins:install @salesforce/sfdx-scanner
           sfdx plugins
       - name: Run SFDX Scanner
         run: |
