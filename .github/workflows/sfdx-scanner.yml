@@ -7,7 +7,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install SFDX
         run: |
-          sudo npm -g install sfdx-cli@latest
+          sudo yarn global add sfdx-cli@latest
           sfdx --version
           sfdx plugins --core
       - name: Install SFDX Scanner
