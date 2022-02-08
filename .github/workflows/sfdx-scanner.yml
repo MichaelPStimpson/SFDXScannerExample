@@ -16,4 +16,4 @@ jobs:
           sfdx plugins
       - name: Run SFDX Scanner
         run: |
-          sfdx scanner:run --target "force-app/main/default/classes/" --format json --violations-cause-error
+          sfdx scanner:run --target "force-app/main/default/classes/" --format table --violations-cause-error
