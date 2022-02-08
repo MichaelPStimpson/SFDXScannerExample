@@ -7,14 +7,14 @@ jobs:
       - uses: actions/checkout@v2
       - name: Install SFDX
         run: |
-          sudo yarn init
           sudo yarn global add sfdx-cli@latest
           sfdx --version
           sfdx plugins --core
       - name: Install SFDX Scanner
         run: |
           sudo sfdx plugins:install @salesforce/sfdx-scanner
-          npm list
+          yarn add @salesforce/sfdx-scanner
+          yarn list
           ls -a
           sudo sfdx plugins:link .
           sfdx plugins
