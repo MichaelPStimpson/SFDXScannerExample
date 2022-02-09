@@ -10,8 +10,8 @@
     "test:unit:watch": "sfdx-lwc-jest --watch",
     "test:unit:debug": "sfdx-lwc-jest --debug",
     "test:unit:coverage": "sfdx-lwc-jest --coverage",
-    "prettier": "prettier --write \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
-    "prettier:verify": "prettier --list-different \"**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml,yaml,yml}\"",
+    "prettier": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\"",
+    "prettier:verify": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\"",
     "postinstall": "husky install",
     "precommit": "lint-staged",
     "apex-prettier": "start-apex-server & npx wait-on http://localhost:2117/api/ast/ && prettier --write 'myns/**/*.{trigger,cls}' --tab-width 4 --print-width 100 --apex-standalone-parser built-in && stop-apex-server"
