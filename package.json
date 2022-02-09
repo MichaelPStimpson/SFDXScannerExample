@@ -1,15 +1,15 @@
 {
-  "name": "salesforce-app",
-  "private": true,
-  "version": "1.0.0",
-  "description": "Salesforce App",
-  "scripts": {
-    "prettier": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\"",
-    "prettier:verify": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\"",
-  },
-  "devDependencies": {
-    "@prettier/plugin-xml": "^0.13.1",
-    "prettier": "^2.3.2",
-    "prettier-plugin-apex": "^1.10.0",
-  },
+	"name": "salesforce-app",
+	"private": true,
+	"version": "1.0.0",
+	"description": "Salesforce App",
+	"scripts": {
+		"prettier": "prettier --write \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\"",
+		"prettier:verify": "prettier --list-different \"force-app/**/*.{cls,cmp,component,css,html,js,json,md,page,trigger,xml}\""
+	},
+	"devDependencies": {
+		"@prettier/plugin-xml": "^0.13.1",
+		"prettier": "^2.3.2",
+		"prettier-plugin-apex": "^1.10.0"
+	}
 }
