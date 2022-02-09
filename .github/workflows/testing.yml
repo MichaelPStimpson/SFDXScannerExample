@@ -1,13 +1,33 @@
 on:
   workflow_dispatch:
 jobs:
-  pretify:
+  run_unit_tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: npm install
-      - run: npm run prettier
-      - uses: stefanzweifel/git-auto-commit-action@v4.1.6
-        with:
-          commit_message: Apply apex-prettier changes
-          
+      - uses: actions/checkout@master
+
+      - name: Install SFDX Client
+        run: |
+          sudo npm -g install sfdx-cli
+          sfdx --version
+          sfdx plugins --core
+
+      - name: Authenticate DevHub
+        run: |
+          echo "${SALESFORCE_JWT_SECRET_KEY}" > ~/server.key
+          sfdx force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CONSUMER_KEY }} --jwtkeyfile ~/server.key --username ${{ secrets.SALESFORCE_DEVHUB_USERNAME}} -s -a wawa_devhub
+        env:
+          SALESFORCE_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_JWT_SECRET_KEY }}
+
+      - name: Create scratch org
+        run: sfdx force:org:create -a $SCRATCH_ORG_NAME -f config/project-scratch-def.json -v wawa_devhub
+
+      - name: Push
+        run: sfdx force:source:push -u $SCRATCH_ORG_NAME
+
+      - name: Run tests
+        run: sfdx force:apex:test:run -r human -u $SCRATCH_ORG_NAME
+
+      - name: Finalize
+        if: always()
+        run: sfdx force:org:delete -p -u $SCRATCH_ORG_NAME -v wawa_devhub
