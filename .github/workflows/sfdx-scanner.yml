@@ -1,7 +1,7 @@
 on:
   workflow_dispatch:
 jobs:
-  validate:
+  static-code-analysis:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
