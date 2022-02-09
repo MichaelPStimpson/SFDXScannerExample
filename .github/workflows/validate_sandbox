@@ -1,1 +1,21 @@
-
+on:
+  workflow_dispatch:
+jobs:
+  validate_sandbox:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SFDX Client
+        run: |
+          sudo npm -g install sfdx-cli@latest
+          sfdx --version
+          sfdx plugins --core
+      - name: Authenticate Org
+        run: |
+          echo "${SALESFORCE_CI_JWT_SECRET_KEY}" > ~/server.key
+          sfdx force:auth:jwt:grant --clientid ${{ secrets.SALESFORCE_CI_CONSUMER_KEY }} --jwtkeyfile ~/server.key --username ${{ secrets.SALESFORCE_CI_USERNAME}} -s -a ohrs_ci --instanceurl "https://vha-gov--ohrsci.my.salesforce.com"
+        env:
+          SALESFORCE_CI_JWT_SECRET_KEY: ${{ secrets.SALESFORCE_CI_JWT_SECRET_KEY }}
+          SFDX_AUDIENCE_URL: https://test.salesforce.com
+      - name: Check deploy
+        run: sfdx force:source:deploy --sourcepath sfdx-source/ohrs --checkonly -u ohrs_ci -l RunLocalTests
