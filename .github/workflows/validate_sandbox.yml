@@ -12,7 +12,7 @@ jobs:
           sfdx plugins --core
       - name: Authenticate Org
         run: |
-          echo ${{ secrets.SANDBOX_JWT_SECRET_KEY }} > ~/server.key
+          echo "${{ secrets.SANDBOX_JWT_SECRET_KEY }}" > ~/server.key
           sfdx force:auth:jwt:grant --clientid ${{ secrets.SANDBOX_CONSUMER_KEY }} --jwtkeyfile ~/server.key --username ${{ secrets.SANDBOX_USERNAME}} -s -a lib --instanceurl "https://libertyits--ghclass.my.salesforce.com"
         env:
           #SANDBOX_JWT_SECRET_KEY: ${{ secrets.SANDBOX_JWT_SECRET_KEY }}
