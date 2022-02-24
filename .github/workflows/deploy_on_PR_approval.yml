@@ -1,0 +1,23 @@
+on:
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  approved:
+    if: github.event.review.state == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install SFDX Client
+        run: |
+          sudo npm -g install sfdx-cli@latest
+          sfdx --version
+          sfdx plugins --core
+      - name: Authenticate Org
+        run: |
+          echo "${{ secrets.SANDBOX_JWT_SECRET_KEY }}" > ~/server.key
+          sfdx force:auth:jwt:grant --clientid ${{ secrets.SANDBOX_CONSUMER_KEY }} --jwtkeyfile ~/server.key --username ${{ secrets.SANDBOX_USERNAME}} -s -a lib --instanceurl "https://libertyits--ghclass.my.salesforce.com"
+        env:
+          SFDX_AUDIENCE_URL: https://test.salesforce.com
+      - name: Check deploy
+        run: sfdx force:source:deploy --sourcepath force-app --checkonly -u lib -l NoTestRun
